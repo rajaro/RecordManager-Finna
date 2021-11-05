@@ -773,8 +773,7 @@ class Marc extends \RecordManager\Base\Record\Marc
                 }
             }
         } elseif ('Dissertation' === $data['format']) {
-            $leader = $this->getField('000');
-            if ('m' === substr($leader, 7, 1)) {
+            if ('m' === substr($this->getField('000'), 7, 1)) {
                 $data['format_ext_str_mv'] = (array)$data['format'];
                 if ('o' === substr($this->getField('008'), 23, 1)
                     || 'cr' === substr($this->getField('007'), 0, 2)
