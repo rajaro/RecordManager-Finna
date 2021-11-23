@@ -772,6 +772,17 @@ class Marc extends \RecordManager\Base\Record\Marc
                     $data['format_ext_str_mv'] = [['VideoGame', $platform]];
                 }
             }
+        } elseif ('Dissertation' === $data['format']) {
+            if ('m' === substr($this->getField('000'), 7, 1)) {
+                $data['format_ext_str_mv'] = (array)$data['format'];
+                if ('o' === substr($this->getField('008'), 23, 1)
+                    || 'cr' === substr($this->getField('007'), 0, 2)
+                ) {
+                    $data['format_ext_str_mv'][] = 'eBook';
+                } else {
+                    $data['format_ext_str_mv'][] = 'Book';
+                }
+            }
         } else {
             $data['format_ext_str_mv'] = $data['format'];
         }
@@ -1909,7 +1920,8 @@ class Marc extends \RecordManager\Base\Record\Marc
                 [self::GET_NORMAL, '648', ['x' => 1]],
                 [self::GET_NORMAL, '650', ['a' => 1, 'x' => 1]],
                 [self::GET_NORMAL, '651', ['x' => 1]],
-                [self::GET_NORMAL, '655', ['x' => 1]]
+                [self::GET_NORMAL, '655', ['x' => 1]],
+                [self::GET_NORMAL, '385', ['a' => 1]]
             ],
             false,
             true,
@@ -1931,7 +1943,8 @@ class Marc extends \RecordManager\Base\Record\Marc
     {
         $result = array_merge(
             parent::getTopics(),
-            $this->get653WithSecondInd([' ', '0', '1', '2', '3'])
+            $this->get653WithSecondInd([' ', '0', '1', '2', '3']),
+            $this->getFieldsSubfields([[self::GET_NORMAL, '385', ['a' => 1,]]])
         );
         return $result;
     }
