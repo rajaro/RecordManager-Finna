@@ -1920,7 +1920,8 @@ class Marc extends \RecordManager\Base\Record\Marc
                 [self::GET_NORMAL, '648', ['x' => 1]],
                 [self::GET_NORMAL, '650', ['a' => 1, 'x' => 1]],
                 [self::GET_NORMAL, '651', ['x' => 1]],
-                [self::GET_NORMAL, '655', ['x' => 1]]
+                [self::GET_NORMAL, '655', ['x' => 1]],
+                [self::GET_NORMAL, '385', ['a' => 1]]
             ],
             false,
             true,
@@ -1942,7 +1943,8 @@ class Marc extends \RecordManager\Base\Record\Marc
     {
         $result = array_merge(
             parent::getTopics(),
-            $this->get653WithSecondInd([' ', '0', '1', '2', '3'])
+            $this->get653WithSecondInd([' ', '0', '1', '2', '3']),
+            $this->getFieldsSubfields([[self::GET_NORMAL, '385', ['a' => 1]]])
         );
         return $result;
     }
