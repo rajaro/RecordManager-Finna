@@ -234,6 +234,74 @@ class Ead3Test extends \RecordManagerTest\Base\Record\RecordTest
     }
 
     /**
+     * Test AHAA EAD3 record handling
+     *
+     * @return void
+     */
+    public function testAhaa14()
+    {
+        // Test year range with ndash
+        $fields = $this->createRecord(Ead3::class, 'ahaa14.xml', [], 'Finna')
+            ->toSolrArray();
+        $ndash = html_entity_decode('&#x2013;', ENT_NOQUOTES, 'UTF-8');
+        $this->assertEquals(
+            "Opintokirja. Helsingin yliopisto (1932{$ndash}1935)",
+            $fields['title']
+        );
+    }
+
+    /**
+     * Test AHAA EAD3 record handling
+     *
+     * @return void
+     */
+    public function testAhaa15()
+    {
+        // Test year range with hyphen
+        $fields = $this->createRecord(Ead3::class, 'ahaa15.xml', [], 'Finna')
+            ->toSolrArray();
+        $this->assertEquals(
+            "Opintokirja. Helsingin yliopisto 1932 - 1935",
+            $fields['title']
+        );
+    }
+
+    /**
+     * Test AHAA EAD3 record handling
+     *
+     * @return void
+     */
+    public function testAhaa16()
+    {
+        // Test year range with mdash
+        $fields = $this->createRecord(Ead3::class, 'ahaa16.xml', [], 'Finna')
+            ->toSolrArray();
+        $mdash = html_entity_decode('&#x2014;', ENT_NOQUOTES, 'UTF-8');
+        $this->assertEquals(
+            "Opintokirja. Helsingin yliopisto 1932{$mdash}1935",
+            $fields['title']
+        );
+    }
+
+    /**
+     * Test AHAA EAD3 record handling
+     *
+     * @return void
+     */
+    public function testAhaa17()
+    {
+        // Test adding year range to title
+        $fields = $this->createRecord(Ead3::class, 'ahaa17.xml', [], 'Finna')
+            ->toSolrArray();
+        $mdash = html_entity_decode('&#x2014;', ENT_NOQUOTES, 'UTF-8');
+        $ndash = html_entity_decode('&#x2013;', ENT_NOQUOTES, 'UTF-8');
+        $this->assertEquals(
+            "Opintokirja. Helsingin yliopisto (1932{$ndash}1935)",
+            $fields['title']
+        );
+    }
+
+    /**
      * Test FSD EAD3 record handling
      *
      * @return void
