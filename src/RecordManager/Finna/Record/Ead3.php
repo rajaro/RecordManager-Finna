@@ -126,7 +126,6 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
                         }
                     }
                     if ($yearRange) {
-                        $len = strlen($yearRange);
                         $reg = '/(\(?)(\d{4})[\p{Pd}'
                             . $ndash . $mdash . '\h]+(\d{4})(\)?)$/';
                         foreach (
