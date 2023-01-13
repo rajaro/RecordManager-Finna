@@ -26,6 +26,6 @@
   <did>
     <unitid />
     <unitdate label="Ajallinen kattavuus" normal="1932-uu-uu/1935-uu-uu">xx.xx.1932-xx.xx.1935</unitdate>
-    <unittitle label="Opintokirja. Helsingin yliopisto 1932&#x2013;1935 " normal="Opintokirja. Helsingin yliopisto 1932&#x2013;1935 " lang="fin">Opintokirja. Helsingin yliopisto (1932&#x2013;1935)</unittitle>
+    <unittitle label="Opintokirja. Helsingin yliopisto 1932&#x2013;1935 " normal="Opintokirja. Helsingin yliopisto 1932&#x2013;1935 " lang="fin">%%title%%</unittitle>
   </did>
 </record>
