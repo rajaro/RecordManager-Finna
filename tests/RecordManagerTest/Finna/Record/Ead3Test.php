@@ -244,7 +244,7 @@ class Ead3Test extends \RecordManagerTest\Base\Record\RecordTest
     {
         $fixture = $this->getFixture('record/ahaa14.xml', 'Finna');
         $fixturePath = $this->getFixturePath('record/ahaa14.xml', 'Finna');
-        $titleReg = '/>(.*)<\/unittitle>/';
+        $titleReg = '/>(.*?)<\/unittitle>/';
         $title = ">" . $newTitle . "</unittitle>";
         $fixture = preg_replace(
             $titleReg,
@@ -290,6 +290,16 @@ class Ead3Test extends \RecordManagerTest\Base\Record\RecordTest
             ->toSolrArray();
         yield 'test dash' => [
             "Opintokirja. Helsingin yliopisto (1932 - 1935)",
+            $record['title']
+        ];
+
+        $this->modifyAhaa14Fixture(
+            "Opintokirja. Helsingin yliopisto 1932-1935"
+        );
+        $record = $this->createRecord(Ead3::class, 'ahaa14.xml', [], 'Finna')
+            ->toSolrArray();
+        yield 'test dash without whitespaces' => [
+            "Opintokirja. Helsingin yliopisto 1932-1935",
             $record['title']
         ];
 
