@@ -318,6 +318,9 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
             $endYear = $this->metadataUtils->extractYear($range[1]);
             $yearRange[] = $startYear !== '-9999' ? $startYear : '';
             $yearRange[] = $endYear !== '9999' ? $endYear : '';
+            if ($yearRange[1] === '2029' && $unitDateRange['endDateUncertain']) {
+                $yearRange[1] = '';
+            }
             $ndash = html_entity_decode('&#x2013;', ENT_NOQUOTES, 'UTF-8');
             $yearRangeStr = trim(implode($ndash, array_unique($yearRange)));
             if (!$yearRangeStr) {
@@ -716,6 +719,7 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
             $hour = '00:00:00'
         ) {
             $unknown = false;
+            $uncertain = false;
             // Set year/month/day to defaults
             $year = str_repeat($defaultYear, 4);
             $month = $defaultMonth;
@@ -724,6 +728,9 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
                 $parts = explode('-', trim($date));
                 if ('uuuu' === $parts[0]) {
                     $unknown = true;
+                }
+                if (strstr($parts[0], 'u')) {
+                    $uncertain = true;
                 }
                 $year = str_replace('u', $defaultYear, $parts[0]);
 
@@ -764,7 +771,7 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
                 return null;
             }
 
-            return compact('date', 'unknown');
+            return compact('date', 'unknown', 'uncertain');
         };
 
         if (null === ($startDate = $parseDate($start))) {
@@ -791,6 +798,7 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
 
         $startDateUnknown = $startDate['unknown'];
         $endDateUnknown = $endDate['unknown'];
+        $endDateUncertain = $endDate['uncertain'];
 
         $startDate = $startDate['date'];
         $endDate = $endDate['date'];
@@ -810,6 +818,7 @@ class Ead3 extends \RecordManager\Base\Record\Ead3
             'date' => [$startDate, $endDate],
             'startDateUnknown' => $startDateUnknown,
             'endDateUnknown' => $endDateUnknown,
+            'endDateUncertain' => $endDateUncertain
         ];
     }
 

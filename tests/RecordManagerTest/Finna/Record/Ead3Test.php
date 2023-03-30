@@ -445,6 +445,22 @@ class Ead3Test extends \RecordManagerTest\Base\Record\RecordTest
     }
 
     /**
+     * Test AHAA EAD3 unknown year in title
+     *
+     * @return void
+     */
+    public function testAhaa15()
+    {
+        $fields = $this->createRecord(Ead3::class, 'ahaa15.xml', [], 'Finna')
+            ->toSolrArray();
+        $ndash = html_entity_decode('&#x2013;', ENT_NOQUOTES, 'UTF-8');
+        $this->assertEquals(
+            "Opintokirja. Helsingin yliopisto (2020{$ndash})",
+            $fields['title']
+        );
+    }
+
+    /**
      * Test FSD EAD3 record handling
      *
      * @return void
