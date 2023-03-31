@@ -749,6 +749,7 @@ class Ead3Test extends \RecordManagerTest\Base\Record\RecordTest
                 'date' => ['2021-01-01T00:00:00Z', '2021-12-31T23:59:59Z'],
                 'startDateUnknown' => false,
                 'endDateUnknown' => false,
+                'endDateUncertain' => false
             ],
             $parseDateRange->invokeArgs($record, ['2021/2021'])
         );
@@ -757,6 +758,7 @@ class Ead3Test extends \RecordManagerTest\Base\Record\RecordTest
                 'date' => ['2022-01-01T00:00:00Z', '2022-12-31T23:59:59Z'],
                 'startDateUnknown' => false,
                 'endDateUnknown' => false,
+                'endDateUncertain' => false
             ],
             $parseDateRange->invokeArgs($record, ['2022/2021'])
         );
