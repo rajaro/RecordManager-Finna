@@ -1,0 +1,17 @@
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+    <leader>00000cjm a22000004i 4500</leader>
+    <controlfield tag="001">123</controlfield>
+    <controlfield tag="008">220916d19311943fi |||||||||||||||||fin c</controlfield>
+    <datafield tag="382" ind1=" " ind2=" ">
+        <subfield code="a">viulu</subfield>
+        <subfield code="n">1</subfield>
+        <subfield code="a">sello</subfield>
+        <subfield code="n">2</subfield>
+        <subfield code="s">7</subfield>
+        <subfield code="d">piano</subfield>
+        <subfield code="n">3</subfield>
+        <subfield code="b">sopraano</subfield>
+    </datafield>
+</record>
+</collection>

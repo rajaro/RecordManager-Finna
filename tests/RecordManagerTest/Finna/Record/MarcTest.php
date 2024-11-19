@@ -1307,4 +1307,36 @@ class MarcTest extends \RecordManagerTest\Base\Record\RecordTestBase
             $fields['media_type_str_mv']
         );
     }
+
+    /**
+     * Test MARC performers
+     *
+     * @return void
+     */
+    public function testMarcPerformers(): void
+    {
+        $record = $this->createMarcRecord(
+            Marc::class,
+            'marc-performers.xml',
+            [],
+            'Finna',
+            [
+                $this->createMock(\RecordManager\Base\Record\PluginManager::class),
+            ]
+        );
+        $fields = $record->toSolrArray();
+        $this->assertEquals(
+            [
+                'viulu/viulu (1)',
+                'sello/sello (2)',
+                'piano/piano (3)',
+                'sopraano/sopraano',
+            ],
+            $fields['performer_str_mv']
+        );
+        $this->assertEquals(
+            7,
+            $fields['performer_total_int']
+        );
+    }
 }
