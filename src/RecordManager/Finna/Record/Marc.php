@@ -925,17 +925,22 @@ class Marc extends \RecordManager\Base\Record\Marc
 
         // Performers
         foreach ($this->record->getFields('382') as $performer) {
+            $performerData = [];
+            $lastIndex = null;
             foreach ($performer['subfields'] ?? [] as $subfield) {
                 if (in_array($subfield['code'], ['a', 'b', 'd', 'p'])) {
-                    $data['performer_str_mv'][] = $subfield['data'] . '/' . $subfield['data'];
+                    $performerData[] = $subfield['data'] . '/' . $subfield['data'];
+                    $lastIndex = array_key_last($performerData);
                 }
-                if (in_array($subfield['code'], ['n', 'e'])) {
-                    $data['performer_str_mv'][array_key_last($data['performer_str_mv'])]
-                        .= ' (' . $subfield['data'] . ')';
+                if (in_array($subfield['code'], ['n', 'e']) && $lastIndex !== null) {
+                    $performerData[$lastIndex] .= ' (' . $subfield['data'] . ')';
                 }
                 if ('s' === $subfield['code']) {
-                    $data['performer_total_int'] = $subfield['data'];
+                    $data['performer_total_int_mv'][] = $subfield['data'];
                 }
+            }
+            if (!empty($performerData)) {
+                $data['performer_str_mv'] = array_merge($data['performer_str_mv'] ?? [], $performerData);
             }
         }
 
